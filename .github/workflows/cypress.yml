@@ -1,0 +1,85 @@
+name: Cypress E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+     branches:
+     - main  # 当 PR 被合并到 main 分支时触发测试
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 第一步：检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 第二步：设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      #安装cypress
+      - name: Install Cypress globally
+        run: |
+            npm install -g cypress
+
+      # 第三步：安装依赖
+      - name: Install dependencies
+        run: |
+           npm install
+           npm install cypress mochawesome mochawesome-report-generator --save-dev
+
+      # 安装 Chrome 浏览器
+      - name: Install Google Chrome
+        run: |
+          sudo apt-get install -y google-chrome-stable
+      # 安装 Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+
+      # 启动 Docker 服务
+      - name: Start Docker services
+        run: |
+         docker-compose up -d
+         echo "Waiting for services to start..."
+         while ! curl -s http://localhost:8002 >/dev/null; do 
+          sleep 2
+          echo "Waiting for Kong Manager..."
+         done
+
+      # 第四步：运行 Cypress 测试并指定浏览器为 Chrome
+      - name: Run Cypress tests
+        run: |
+          npx cypress run 
+      
+      - name: Print working directory
+        run: pwd
+
+      # 上传测试报告和截图
+      - name: Upload Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/reports/
+
+      - name: Upload DOM snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dom-snapshot
+          path: cypress/reports/dom-snapshot.html
+
+      # 停止 Docker 服务
+      - name: Tear down Docker services
+        run: |
+          docker-compose down
