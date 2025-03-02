@@ -7,25 +7,28 @@ This project contains an end-to-end testing suite for **Kong Gateway** using **C
 
 The project follows the structure outlined below:
 
-KONGHOMEWORK/
-├── .github/workflows/      
-│   └── cypress.yml           # Configuration for running Cypress tests in CI
-├── cypress/                  # Cypress end-to-end (E2E) test directory       
-│   ├── e2e/                  # E2E test files
-│   │   ├── Features/         # Test cases categorized by feature
-│   │   │   └── CreateServiceRoute.cy.js   
-│   │   ├── Pages/            # Page Object Model (POM) for better test structure
-│   │   │   ├── RoutePage.js  
-│   │   │   ├── ServicePage.js 
-│   ├── reports/              # Cypress test reports
-│   │   ├── screenshots/      # Cypress test execution screenshots recordings
-│   │   ├── videos/           # Cypress test execution video recordings
-│   │   └── index.html        # Main HTML report for test results
-│   ├── support/              # Cypress support files
-│   │   ├── e2e.js            # Global Cypress setup and configuration
-├── node_modules/             # Node.js dependencies (auto-generated)
-├── cypress.config.js         # Cypress configuration file
+```Markdown 
 
+KONGHOMEWORK/
+│── .github/workflows/
+│   └── cypress.yml                # Configuration for running Cypress tests in CI
+│── cypress/                        # Cypress end-to-end (E2E) test directory
+│   ├── e2e/                        # E2E test files
+│   │   ├── Features/               # Test cases categorized by feature
+│   │   │   └── CreateServiceRoute.cy.js
+│   │   ├── Pages/                   # Page Object Model (POM) for better test structure
+│   │   │   ├── ServicePage.js
+│   │   │   ├── RoutePage.js
+│   ├── reports/                     # Cypress test reports
+│   │   ├── screenshots/             # Cypress test execution screenshots
+│   │   ├── videos/                  # Cypress test execution video recordings
+│   │   ├── index.html                # Main HTML report for test results
+│   ├── support/                     # Cypress support files
+│   │   └── e2e.js                   # Global Cypress setup and configuration
+│── node_modules/                     # Node.js dependencies (auto-generated)
+│── cypress.config.js                 # Cypress configuration file
+
+```
 
 
 
@@ -71,7 +74,7 @@ KONGHOMEWORK/
        ```
        This will open the Cypress Test Runner where you can manually run tests. In this project, the test scripts are located in the `cypress/e2e/Features` directory named  `CreateServiceRoute.cy.js`,This test automates the creation of a service and route in Kong Gateway, verifies their successful creation, and cleans up test data afterward.
 
-     - **To run the tests in headless mode (without UI):**
+      - **To run the tests in headless mode (without UI):**
        ```bash
        npx cypress run
        ```
@@ -86,6 +89,6 @@ KONGHOMEWORK/
 ### 6. **Teardown Kong Gateway**
    - After running the tests, you can shut down the Docker containers by running:
      ```bash
-     xdocker-compose down
+     docker-compose down
      ```
      This will stop and remove the Kong Gateway container, cleaning up the environment.
