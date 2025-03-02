@@ -30,7 +30,7 @@ class RoutePage {
   }
 
   // Delete route
-  DeleteRoute(routeName) {
+  deleteRoute(routeName) {
     this.filterRoute(routeName);
     cy.get('td[data-testid="name"]', { timeout: 60000 }).should('be.visible').click();
     cy.get('svg[data-testid="kui-icon-svg-chevron-down-icon"]').first().click();

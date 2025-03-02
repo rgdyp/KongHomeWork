@@ -39,7 +39,6 @@ class ServicePage {
     cy.get('input[data-testid="confirmation-input"]', { timeout: 10000 }).should('be.visible').type(serviceName);
     cy.get('[data-testid="modal-action-button"]').click();
     cy.get('.toaster-message').contains(`Gateway Service "${serviceName}" successfully deleted!`);
-
   };
 }
 

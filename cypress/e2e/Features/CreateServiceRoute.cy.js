@@ -15,14 +15,14 @@ const routePath = '/test';
   });
 
 
-  it('Create a new route for a service', () => {
+  it('Create a new route linked to a service and verify it', () => {
     RoutePage.visit();
     RoutePage.createRoute(routeName, serviceName, routePath);
   
   });
 
   it('Clean up the route', () => {
-    RoutePage.DeleteRoute(routeName);
+    RoutePage.deleteRoute(routeName);
 
   });
 

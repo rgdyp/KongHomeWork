@@ -1,22 +1,30 @@
 # Cypress End-to-End Testing for Kong Gateway Service
 
-This project contains an end-to-end testing suite for **Kong Gateway** using **Cypress**. The tests are designed to automate the creation of services and routes in Kong Gateway via its UI, ensuring proper functionality.
+This project contains an end-to-end testing suite for **Kong Gateway** using **Cypress**. The tests are designed to automate the creation of services and routes in Kong Gateway via its UI, verifies their successful creation and clean up test data upon completion.
 
 
 ## Project Structure
 
 The project follows the structure outlined below:
 
-
-- **cypress/e2e/Features/**: Contains the test cases for creating services and routes in Kong Gateway. The main test file is `CreateServiceRoute.cy.js`.
-- **cypress/e2e/Pages/**: Contains the Page Object Model (POM) files like `ServicePage.js` and `RoutePage.js` to abstract page interactions.
-- **cypress.config.js**: Configuration file for Cypress, where test patterns and other settings are defined.
-- **.github/workflows/cypress.yml**: GitHub Actions configuration for running Cypress tests on every push.
-- **docker-compose.yml**: Used to set up the Kong Gateway environment in Docker, making it easier to spin up and test the gateway locally.
-- **package.json**: Contains the project’s dependencies, including Cypress and other testing utilities.
-- **cypress/reports/**: This folder stores the generated test reports
-- **cypress/results/**: This directory stores the results of the tests
-- **cypress/screenshots/**: When a test fails, Cypress captures screenshots of the failing test and saves them in this directory for debugging purposes.
+KONGHOMEWORK/
+├── .github/workflows/      
+│   └── cypress.yml           # Configuration for running Cypress tests in CI
+├── cypress/                  # Cypress end-to-end (E2E) test directory       
+│   ├── e2e/                  # E2E test files
+│   │   ├── Features/         # Test cases categorized by feature
+│   │   │   └── CreateServiceRoute.cy.js   
+│   │   ├── Pages/            # Page Object Model (POM) for better test structure
+│   │   │   ├── RoutePage.js  
+│   │   │   ├── ServicePage.js 
+│   ├── reports/              # Cypress test reports
+│   │   ├── screenshots/      # Cypress test execution screenshots recordings
+│   │   ├── videos/           # Cypress test execution video recordings
+│   │   └── index.html        # Main HTML report for test results
+│   ├── support/              # Cypress support files
+│   │   ├── e2e.js            # Global Cypress setup and configuration
+├── node_modules/             # Node.js dependencies (auto-generated)
+├── cypress.config.js         # Cypress configuration file
 
 
 
@@ -46,10 +54,10 @@ The project follows the structure outlined below:
    - After Docker has started Kong Gateway, you can access **Kong Manager UI** at [http://localhost:8002](http://localhost:8002) in your browser.
 
 
-### 3. **Install Cypress and other dependencies**
+### 3. **Install Cypress and dependencies**
    - In the same project directory, run the following commands to install Cypress and other necessary dependencies:
      ```bash
-     npm init -y                                 
+     npm init -y                        
      npm install cypress --save-dev 
      npm install cypress-mochawesome-reporter --save-dev              
      ```
@@ -57,11 +65,18 @@ The project follows the structure outlined below:
 ### 4. **Run Cypress Tests**
    - Once the installation is complete, you can run the Cypress tests :
    
-     - **To open the Cypress UI for interactive testing:**
+      - **To open the Cypress UI for interactive testing:**
        ```bash
        npx cypress open
        ```
-       This will open the Cypress Test Runner, allowing you to manually run tests. You can also write or update your test scripts in the corresponding JavaScript files. The test script file is `CreateServiceRoute.cy.js` under the `cypress/e2e/Features` folder. It automates the creation of a service and route in Kong Gateway and verifies their successful creation using the filter functionality.
+       This will open the Cypress Test Runner where you can manually run tests. In this project, the test scripts are located in the `cypress/e2e/Features` directory named  `CreateServiceRoute.cy.js`,This test automates the creation of a service and route in Kong Gateway, verifies their successful creation, and cleans up test data afterward.
+
+     - **To run the tests in headless mode (without UI):**
+       ```bash
+       npx cypress run
+       ```
+       This will execute all the tests in the command line without opening the Cypress Test Runner.
+       The test results are generated using cypress-mochawesome-reporter and stored in the cypress/reports directory, including videos and screenshots for reference.
 
 ###  5. GitHub Actions (Continuous Integration)
    This project is set up with GitHub Actions to run Cypress tests automatically on every push to the `main` branch. This ensures that all tests are executed whenever changes are made
