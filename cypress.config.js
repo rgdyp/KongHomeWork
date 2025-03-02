@@ -13,7 +13,7 @@ module.exports = defineConfig({
   defaultCommandTimeout: 30000, 
   pageLoadTimeout: 120000,       // 页面加载超时提升到 2 分钟
   "chromeWebSecurity": false,
-  "failOnStatusCode": false,
+  // "failOnStatusCode": false,
   reporter: 'cypress-mochawesome-reporter',  
   video: true,
   screenshotsFolder: 'cypress/reports/screenshots',
